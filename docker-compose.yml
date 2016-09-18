@@ -1,0 +1,21 @@
+version: 2
+volumes: 
+  seafile_data:
+   external: 
+    name: "seafile-data"
+services:
+ seafile: 
+  image: cholzberger/seafile
+  build: .
+  volumes:
+    - seafile_data:/opt/seafile
+  ports: 
+    - "8082:8082"
+    - "80:80"
+    - "443:443"
+  environment:
+    - IP_OR_DOMAIN=cloud.wangyan.org
+    - SEAFILE_ADMIN=info@wangyan.org
+    - SEAFILE_ADMIN_PW=123456
+    - SQLSEAFILEPW=123456
+
