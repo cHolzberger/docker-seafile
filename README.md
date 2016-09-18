@@ -25,46 +25,24 @@ systemctl enable docker.service && \
 systemctl start docker.service
 ```
 
-## 二、安装 MySQL 数据库
+## Docker Compose
 
-**如果你想使用内置的数据库，请忽略步骤(二)(三)(四)，直接跳到步骤(五)**
+Use Docker Compose to setup seafile
+```
+docker volume create --name=seafile-mysql-data
+docker volume create --name=seafile-data
+docker network create  seafile
 
-> 注意将`123456`换成你的MySQL Root密码
-
-```shell
-docker run --name mysql \
--v /var/lib/mysql:/var/lib/mysql \
--e MYSQL_ROOT_PASSWORD=123456 \
--p 3306:3306 \
--d mysql:latest
+docker-compose build
+docker-compose up
 ```
 
-## 三、安装 phpMyAdmin (可选)
-
-> **温馨提示：**国内主机请将 `idiswy/phpmyadmin:latest` 换成 `docker.wangyan.org/root/docker-phpmyadmin:latest`
-
-```shell
-docker run --name phpmyadmin \
---link mysql:mysql \
--p 8080:80 \
--P -d idiswy/phpmyadmin:latest
-```
-
-## 四、安装 Seafile （外部数据库）
-
+See docker-compose.yml for Variables: 
 - `IP_OR_DOMAIN` 服务器IP或者域名
 - `SEAFILE_ADMIN` 创建 Seafile 管理员账号
 - `SEAFILE_ADMIN_PW`  Seafile 管理员密码
 - `SQLSEAFILEPW` Seafile 数据库密码
 
-> 注意：如果有防火墙，请务必开放8082端口，用于客户端同步。
-> 国内主机请将 `idiswy/seafile:latest` 换成 `docker.wangyan.org/root/docker-seafile:latest`
-> 国内主机可增加`-e APT_MIRRORS=aliyun` 选项，使用国内的镜像源。
-
-```shell
-docker run --name seafile \
---link mysql:mysql \
--p 8082:8082 \
 -p 80:80 \
 -p 443:443 \
 -e IP_OR_DOMAIN=cloud.wangyan.org \
