@@ -1,12 +1,17 @@
-version: 2
+version: "2"
+networks:
+  seafile:
 volumes: 
   seafile_data:
    external: 
     name: "seafile-data"
+  mysql_data: 
+   external:
+    name: "seafile-mysql-data"
 services:
  seafile: 
   image: cholzberger/seafile
-  build: .
+  build: seafile/
   volumes:
     - seafile_data:/opt/seafile
   ports: 
@@ -18,4 +23,20 @@ services:
     - SEAFILE_ADMIN=info@wangyan.org
     - SEAFILE_ADMIN_PW=123456
     - SQLSEAFILEPW=123456
-
+    - MYSQL_ROOT_PASSWORD=123456
+    - SEAFILE_FILESERVER_PORT=8082
+  networks: 
+    - seafile
+  depends_on:
+    - mysql
+ mysql: 
+  image: mariadb:latest
+  ports:
+    - "3306:3006"
+  environment:
+    - MYSQL_ROOT_PASSWORD=123456
+    - MYSQL_USER=seafile
+    - MYSQL_PASSWORD=123456
+  networks: 
+    - seafile
+    

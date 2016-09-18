@@ -7,7 +7,7 @@ if [ "$APT_MIRRORS" = "aliyun" ];then
 fi
 
 arch=$(uname -m | sed s/"_"/"-"/g)
-regexp="http(s?):\/\/[^ \"\(\)\<\>]*seafile-server_[\d\.\_]*$arch.tar.gz"
+regexp="http(s?):\/\/[^ \"\(\)\<\>]*seafile-server_6[\d\.\_]*$arch.tar.gz"
 
 which wget > /dev/null
 wget=$?

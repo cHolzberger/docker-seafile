@@ -8,7 +8,6 @@ fi
 if [ ! -f "/opt/seafile/conf/seahub_settings.pyc" ]; then
     if [ -z "$MYSQL_ENV_MYSQL_ROOT_PASSWORD" ]; then
         [ -z "$MYSQL_ROOT_PASSWORD" ] && MYSQL_ROOT_PASSWORD=123456
-        /usr/bin/mysql-setup MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
         /usr/bin/seafile-setup-mysql
     else
         /usr/bin/seafile-setup

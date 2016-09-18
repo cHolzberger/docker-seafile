@@ -19,7 +19,7 @@ SEAFILE_DATA_DIR=${TOPDIR}/seafile-data
 DEFAULT_CCNET_CONF_DIR=${TOPDIR}/ccnet
 ##--Create conf/seafile.conf--##
 SEAF_SERVER_INIT=${INSTALLPATH}/seafile/bin/seaf-server-init
-FILESERVER_PORT=8082
+FILESERVER_PORT=$SEAFILE_FILESERVER_PORT
 #--prepare avatar directory--##
 ORIG_AVATAR_DIR=${INSTALLPATH}/seahub/media/avatars
 DEST_AVATAR_DIR=${TOPDIR}/seahub-data/avatars
