@@ -1,0 +1,25 @@
+seafile: 
+  build: .
+  volumes:
+    - seafile_data:/opt/seafile
+  ports: 
+    - "8082:8082"
+    - "80:80"
+    - "443:443"
+  environment:
+    - IP_OR_DOMAIN=cloud.wangyan.org
+    - SEAFILE_ADMIN=info@wangyan.org
+    - SEAFILE_ADMIN_PW=123456
+    - SQLSEAFILEPW=123456
+    - MYSQL_ROOT_PASSWORD=123456
+    - SEAFILE_FILESERVER_PORT=8082
+  links:
+    - mysql:mysql
+mysql: 
+  image: mariadb:latest
+  ports:
+    - "3306:3006"
+  environment:
+    - MYSQL_ROOT_PASSWORD=123456
+    - MYSQL_USER=seafile
+    - MYSQL_PASSWORD=123456
