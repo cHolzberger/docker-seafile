@@ -11,7 +11,7 @@ volumes:
 services:
  seafile: 
   image: cholzberger/seafile
-  build: seafile/
+  build: .
   volumes:
     - seafile_data:/opt/seafile
   ports: 
